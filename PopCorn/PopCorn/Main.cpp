@@ -16,7 +16,7 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-
+//-------------------------------------------------------------------------------------------------------------------------
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -54,9 +54,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     return (int) msg.wParam;
 }
+//-------------------------------------------------------------------------------------------------------------------------
 
-
-
+//-------------------------------------------------------------------------------------------------------------------------
 //
 //  FUNCTION: MyRegisterClass()
 //
@@ -82,7 +82,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     return RegisterClassExW(&wcex);
 }
-
+//-------------------------------------------------------------------------------------------------------------------------
 //
 //   FUNCTION: InitInstance(HINSTANCE, int)
 //
@@ -109,17 +109,26 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       0, 0, window_rect.right - window_rect.left, window_rect.bottom - window_rect.top, nullptr, nullptr, hInstance, nullptr);
 
-   if (!hWnd)
-   {
+   if (hWnd == 0)
       return FALSE;
-   }
+   
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
    return TRUE;
 }
+//-------------------------------------------------------------------------------------------------------------------------
+//drawing window game
+void Draw_Frame(HDC hdc)
+{
+    
+}
+//-------------------------------------------------------------------------------------------------------------------------
 
+
+
+//-------------------------------------------------------------------------------------------------------------------------
 //
 //  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
@@ -134,6 +143,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -151,23 +162,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
+            Draw_Frame(hdc);
             EndPaint(hWnd, &ps);
         }
         break;
+
+
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+
+
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
+
+
     return 0;
 }
-
+//-------------------------------------------------------------------------------------------------------------------------
 // Message handler for about box.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -187,3 +207,4 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return (INT_PTR)FALSE;
 }
+//-------------------------------------------------------------------------------------------------------------------------
